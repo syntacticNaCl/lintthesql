@@ -7,3 +7,6 @@ alignment:
   justification: left
   strict: yes
 
+keyword:
+  case: upper
+

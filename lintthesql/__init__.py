@@ -18,7 +18,7 @@ def lintthesql(args):
         print('Config file does not exist you dummy!')
         sys.exit()
 
-    parser = Parser()
+    parser = Parser(config)
     input_file = cwd + '/' + args.file
     input_file_path = Path(input_file)
 
@@ -48,7 +48,6 @@ def parse_args():
 
 def parse(parser, file):
     parser.set_file(file)
-    # print(parser.parse(config))
-    print(parser.format())
+    parser.format()
 
 lintthesql(parse_args())

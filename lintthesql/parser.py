@@ -1,8 +1,16 @@
 import os, sys, sqlparse
 
 from config import Config
+from formatters.keyword import KeywordFormatter
 
 class Parser:
+
+    def __init__(self, config):
+        if isinstance(config, Config):
+            self.config = config
+            self.rules = config.get_rules()
+        else:
+            raise Exception('Please provide a valid Config object to the parser')
 
     def set_file(self, sql_file):
         """
@@ -13,13 +21,7 @@ class Parser:
 
     def parse(self, config):
         if self.file_type == '.sql':
-            if isinstance(config, Config):
-                rules = config.get_rules()
-
-                return self.get_tokens(self.get_file_contents())
-                return rules
-            else:
-                raise Exception('Please provide a valid Config object to the parser')
+            return self.rulesget_tokens(self.get_file_contents())
         else:
             print('No valid file to use')
 
@@ -36,13 +38,11 @@ class Parser:
         """
         with open(self.sql_file, 'r') as sql:
             text = sql.read()
-            text = text.replace(";\n",";")
-            text = text.replace("--","\n--")
             # text = text.replace('\n', '\n\n')
             # text=sql.read()
             # TODO: fix some text replacement issues here
             # https://github.com/andialbrecht/sqlparse/issues/313
-        return text
+        return self.filter_text(text)
 
     def get_tokens(self, sql_text):
         """
@@ -52,4 +52,13 @@ class Parser:
         return parsed.tokens
 
     def format(self):
-        return sqlparse.format(self.get_file_contents(), reindent_aligned=True)
+        formatters = self.config.get_formatters()
+        file_contents = self.get_file_contents()
+        for formatter in formatters:
+            # print(formatter.get_rule())
+            file_contents = formatter.format(file_contents)
+
+        print(file_contents)
+
+    def filter_text(self, text):
+        return text.replace(";\n",";").replace("--","\n--")
