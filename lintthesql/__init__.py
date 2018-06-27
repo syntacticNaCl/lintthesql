@@ -25,7 +25,10 @@ def lintthesql(args):
     nyan_progress = None
 
     if input_file_path.is_file():
-        parse(parser, input_file)
+        try:
+            parse(parser, input_file)
+        except ValueError as error:
+            print(error)
     elif input_file_path.is_dir():
         input_files = []
 
@@ -45,7 +48,14 @@ def lintthesql(args):
         total_input_files = len(input_files)
 
         for input_file in input_files:
-            parse(parser, input_file)
+            try:
+                parse(parser, input_file)
+            except ValueError as error:
+                print(error)
+
+                if nyan_progress:
+                    nyan_progress.finish()
+                    sys.exit()
 
             input_file_index = input_files.index(input_file)
             progress = (input_file_index + 1) / total_input_files * 100
@@ -59,6 +69,7 @@ def lintthesql(args):
 
     if nyan_progress:
         nyan_progress.finish()
+        sys.exit()
 
 def parse_args():
     arg_parser = argparse.ArgumentParser(description='Lint, the S(e)Q(ue)L - a configurable SQL linter.')
