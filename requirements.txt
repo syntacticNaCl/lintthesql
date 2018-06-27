@@ -1,2 +1,3 @@
 sqlparse
 PyYaml
+git+git://github.com/So-Cool/nyanbar.git
