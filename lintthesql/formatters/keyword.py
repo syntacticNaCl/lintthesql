@@ -14,7 +14,7 @@ class KeywordFormatter(Formatter):
         rule = self.get_rule()
         case_rule = rule['case']
 
-        if case_rule
+        if case_rule:
             if case_rule == KeywordFormatter.RULE_CASE_LOWER:
                 file_contents = self.format_with_sqlparse(file_contents, KeywordFormatter.RULE_CASE_LOWER)
             elif case_rule == KeywordFormatter.RULE_CASE_UPPER:
