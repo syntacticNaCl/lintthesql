@@ -4,9 +4,12 @@ language:
   version: 5.7
 
 alignment: 
-  justification: left
-  strict: yes
+  justification: right
 
 keyword:
   case: upper
+
+indent:
+  tabs: true 
+  width: 2
 

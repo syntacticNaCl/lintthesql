@@ -1,5 +1,8 @@
 import sys
 
+from sqlparse import tokens as T
+from sqlparse import sql, parse, format as sqlformat
+
 class Formatter(object):
 
     def set_config(self, config):
@@ -14,3 +17,8 @@ class Formatter(object):
 
     def format(self):
         pass
+
+    def fix_spacing(self, sql_formatted):
+        sql_formatted = sql_formatted.replace('--', '\n--')
+        return sql_formatted
+    

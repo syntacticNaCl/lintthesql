@@ -55,7 +55,6 @@ class Parser:
         formatters = self.config.get_formatters()
         file_contents = self.get_file_contents()
         for formatter in formatters:
-            # print(formatter.get_rule())
             file_contents = formatter.format(file_contents)
 
         print(file_contents)
