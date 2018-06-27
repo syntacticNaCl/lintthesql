@@ -7,8 +7,9 @@ from parser import Parser
 from pathlib import Path
 
 def lintthesql(args):
-    input_file_path = Path(args.file)
-    config_file = os.getcwd() + '/.lintthesql.yml'
+    cwd = os.getcwd()
+    input_file_path = Path(cwd + '/' + args.file)
+    config_file = cwd + '/.lintthesql.yml'
     config_file_path = Path(config_file)
 
     if input_file_path.is_file():
