@@ -3,3 +3,7 @@ language:
   name: mysql
   version: 5.7
 
+alignment: 
+  justification: left
+  strict: yes
+

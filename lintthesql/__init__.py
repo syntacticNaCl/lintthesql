@@ -12,22 +12,21 @@ def lintthesql(input):
     config_file_path = Path(config_file)
 
     if input_file_path.is_file():
-        print('Exists')
-        parser = Parser()
-        parser.set_file(input)
-        print(parser.parse())
+        if config_file_path.is_file():
+            config = Config(config_file)
+            parser = Parser()
+            parser.set_file(input)
+            # print(parser.parse(config))
+            print(parser.format())
+        else:
+            # doesn't exist
+            print('Config file does not exist you dummy!')
+            sys.exit()
     else:
         # doesn't exist
-        print('File does not exist you dummy!')
+        print('Input file does not exist you dummy!')
         sys.exit()
 
-    if config_file_path.is_file():
-        config = Config(config_file)
-        print(config.get_rules())
-    else:
-        # doesn't exist
-        print('File does not exist you dummy!')
-        sys.exit()
 
 lintthesql(sys.argv[1])
 
