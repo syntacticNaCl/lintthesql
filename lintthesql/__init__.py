@@ -6,13 +6,8 @@ from config import Config
 from parser import Parser
 from pathlib import Path
 
-config = None
-parser = Parser()
-
 def lintthesql(args):
     cwd = os.getcwd()
-    input_file = cwd + '/' + args.file
-    input_file_path = Path(input_file)
     config_file = cwd + '/.lintthesql.yml'
     config_file_path = Path(config_file)
 
@@ -23,14 +18,21 @@ def lintthesql(args):
         print('Config file does not exist you dummy!')
         sys.exit()
 
+    parser = Parser()
+    input_file = cwd + '/' + args.file
+    input_file_path = Path(input_file)
+
     if input_file_path.is_file():
-        parse(input_file)
+        parse(parser, input_file)
     elif input_file_path.is_dir():
         for root, dirs, files in os.walk(input_file_path):
             path = root.split(os.sep)
 
             for file in files:
-                parse(root + '/' + file)
+                input_file = root + '/' + file
+
+                if os.path.splitext(input_file)[1] == '.' + args.type.replace('.', ''):
+                    parse(parser, input_file)
     else:
         # doesn't exist
         print('Input file does not exist you dummy!')
@@ -44,7 +46,7 @@ def parse_args():
 
     return arg_parser.parse_args()
 
-def parse(file):
+def parse(parser, file):
     parser.set_file(file)
     # print(parser.parse(config))
     print(parser.format())
