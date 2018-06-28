@@ -20,6 +20,7 @@ def lintthesql(args):
         sys.exit()
 
     parser = Parser(config)
+    should_rewrite = args.fix
     input_file = cwd + '/' + args.file
     input_file_path = Path(input_file)
 
@@ -63,19 +64,20 @@ def parse_args():
 
     arg_parser.add_argument('--file', default='./', help='lints the given file (default: lints all files)')
     arg_parser.add_argument('--type', default='sql', help='sets the type of files to lint (default: .sql)')
+    arg_parser.add_argument('--fix', default=False, action='store_true', help='will re-write the SQL statements in files when ran (default: false)')
     arg_parser.add_argument('--nyan', default=False, action='store_true', help='show a Nyan Cat progress bar')
 
     return arg_parser.parse_args()
 
 def parse(parser, file):
-    parser.set_file(file)
-    parser.format()
+    if args.fix:
+        parser.set_file(file)
+        parser.format()
 
 @atexit.register
 def clean_up():
     if nyan_progress:
         nyan_progress.finish()
-        sys.exit()
 
 args = parse_args()
 nyan_progress = None
