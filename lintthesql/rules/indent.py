@@ -8,6 +8,20 @@ from rules.rule import Rule
 class IndentRule(Rule):
     RULE_KEY = 'indent'
 
+    def get(self):
+        has_tabs = self.rule.get('tabs')
+        width = self.rule.get('width')
+        rules = {}
+
+        if has_tabs:
+            rules['indent_tabs'] = True
+
+        if width and width > 0:
+            rules['indent_width'] = width
+
+        return rules
+
+
     def format(self, file_contents):
         rule = self.rule
 

@@ -10,6 +10,6 @@ keyword:
   case: upper
 
 indent:
-  tabs: true
-  width: 8
+  tabs: false
+  width: 4 
 

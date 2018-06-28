@@ -8,6 +8,12 @@ from rules.rule import Rule
 class AlignmentRule(Rule):
     RULE_KEY = 'alignment'
 
+    def get(self):
+        if self.rule['justification'] and self.rule['justification'] != 'left':
+            return { 'reindent_aligned': True }
+
+        return { 'reindent': True }
+
     def format(self, file_contents):
         rule = self.rule
 

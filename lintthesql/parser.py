@@ -55,8 +55,11 @@ class Parser:
         rules = self.config.get_rules()
         file_contents = self.get_file_contents()
         # print(rules[0].format_custom(file_contents))
+        rule_list = {}
         for rule in rules:
-            file_contents = rule.format(file_contents)
+            rule_list = {**rule_list, **rule.get()}
+
+        file_contents = sqlparse.format(file_contents, **rule_list)
 
         print(file_contents)
 
