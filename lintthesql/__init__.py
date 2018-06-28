@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys, os, argparse, time
+import sys, os, argparse, time, atexit
 
 from config import Config
 from parser import Parser
@@ -22,7 +22,6 @@ def lintthesql(args):
     parser = Parser(config)
     input_file = cwd + '/' + args.file
     input_file_path = Path(input_file)
-    nyan_progress = None
 
     if input_file_path.is_file():
         try:
@@ -31,10 +30,6 @@ def lintthesql(args):
             print(error)
     elif input_file_path.is_dir():
         input_files = []
-
-        if args.nyan:
-            nyan_mp3_file = os.path.dirname(__file__) + '/nyan.mp3'
-            nyan_progress = NyanBar(audiofile=nyan_mp3_file)
 
         for root, dirs, files in os.walk(input_file_path):
             path = root.split(os.sep)
@@ -53,10 +48,6 @@ def lintthesql(args):
             except ValueError as error:
                 print(error)
 
-                if nyan_progress:
-                    nyan_progress.finish()
-                    sys.exit()
-
             input_file_index = input_files.index(input_file)
             progress = (input_file_index + 1) / total_input_files * 100
 
@@ -65,10 +56,6 @@ def lintthesql(args):
     else:
         # doesn't exist
         print('Input file does not exist you dummy!')
-        sys.exit()
-
-    if nyan_progress:
-        nyan_progress.finish()
         sys.exit()
 
 def parse_args():
@@ -84,4 +71,17 @@ def parse(parser, file):
     parser.set_file(file)
     parser.format()
 
-lintthesql(parse_args())
+@atexit.register
+def clean_up():
+    if nyan_progress:
+        nyan_progress.finish()
+        sys.exit()
+
+args = parse_args()
+nyan_progress = None
+
+if args.nyan:
+    nyan_mp3_file = os.path.dirname(__file__) + '/nyan.mp3'
+    nyan_progress = NyanBar(audiofile=nyan_mp3_file)
+
+lintthesql(args)
