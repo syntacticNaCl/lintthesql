@@ -3,7 +3,7 @@
 import sys, os, argparse, time, atexit
 
 from config import Config
-from parser import Parser
+from linter import Linter
 from pathlib import Path
 from nyanbar import NyanBar
 
@@ -19,14 +19,14 @@ def lintthesql(args):
         print('Config file does not exist you dummy!')
         sys.exit()
 
-    parser = Parser(config)
+    linter = Linter(config)
     should_rewrite = args.fix
     input_file = cwd + '/' + args.file
     input_file_path = Path(input_file)
 
     if input_file_path.is_file():
         try:
-            parse(parser, input_file)
+            lint_file(linter, input_file)
         except ValueError as error:
             print(error)
     elif input_file_path.is_dir():
@@ -45,7 +45,7 @@ def lintthesql(args):
 
         for input_file in input_files:
             try:
-                parse(parser, input_file)
+                lint_file(linter, input_file)
             except ValueError as error:
                 print(error)
 
@@ -69,10 +69,13 @@ def parse_args():
 
     return arg_parser.parse_args()
 
-def parse(parser, file):
+def lint_file(linter, file):
+    linter.set_file(file)
+
     if args.fix:
-        parser.set_file(file)
-        parser.format()
+        linter.format()
+    else:
+        linter.lint()
 
 @atexit.register
 def clean_up():
