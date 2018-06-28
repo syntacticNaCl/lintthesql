@@ -1,6 +1,6 @@
-from parser import Parser
+from lintthesql.parser import Parser
 from sqlparse import parse, tokens as T
-from linters.keyword import KeywordLinter
+from lintthesql.linters.keyword import KeywordLinter
 
 class Linter(Parser):
 

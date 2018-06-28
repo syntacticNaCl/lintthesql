@@ -2,10 +2,10 @@
 
 import sys, os, argparse, time, atexit
 
-from config import Config
-from linter import Linter
+from lintthesql.config import Config
+from lintthesql.linter import Linter
 from pathlib import Path
-from nyanbar import NyanBar
+from lintthesql.modules.nyanbar import NyanBar
 
 def lintthesql(args):
     cwd = os.getcwd()

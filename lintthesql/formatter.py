@@ -1,6 +1,6 @@
 import os, sys, sqlparse
 
-from config import Config
+from lintthesql.config import Config
 
 class Formatter():
 

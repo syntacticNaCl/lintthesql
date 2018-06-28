@@ -1,9 +1,10 @@
 import os, sys
 import yaml
 
-from rules.keyword import KeywordRule
-from rules.alignment import AlignmentRule
-from rules.indent import IndentRule
+from lintthesql.rules.keyword import KeywordRule
+from lintthesql.rules.alignment import AlignmentRule
+from lintthesql.rules.indent import IndentRule
+from lintthesql.rules.wrap import WrapRule
 
 class Config:
 
@@ -32,6 +33,10 @@ class Config:
                 rules.append(rule)
             elif rule_key == 'alignment':
                 rule = AlignmentRule()
+                rule.set_rule(self.rules)
+                rules.append(rule)
+            elif rule_key == 'wrap':
+                rule = WrapRule()
                 rule.set_rule(self.rules)
                 rules.append(rule)
 

@@ -1,5 +1,5 @@
-from linters.abstract import AbstractLinter
-from rules.keyword import KeywordRule
+from lintthesql.linters.abstract import AbstractLinter
+from lintthesql.rules.keyword import KeywordRule
 
 class KeywordLinter(AbstractLinter):
     def configure_rule(self, rules):

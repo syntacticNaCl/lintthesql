@@ -14,8 +14,6 @@ lintthesql is a SQL linter and formatter.
 with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
-print(requirements)
-
 setup(
     name = 'lintthesql',
     version = '1.0.0',
@@ -37,7 +35,7 @@ setup(
     keywords = 'cli, lint, formatter, sql',
     packages = find_packages(exclude=['docs', 'tests*', 'examples']),
     install_requires = ['sqlparse','PyYaml'],
-    dependency_links = ['git+https://github.com/So-Cool/nyanbar/tarball/master@egg=nyanbar'],
+    dependency_links = ['git+https://github.com/So-Cool/nyanbar.git'],
     entry_points = {
         'console_scripts': [
             'lintthesql=lintthesql',

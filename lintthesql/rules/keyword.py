@@ -1,6 +1,6 @@
 import sqlparse
 
-from rules.rule import Rule
+from lintthesql.rules.rule import Rule
 
 class KeywordRule(Rule):
     RULE_KEY = 'keyword'
