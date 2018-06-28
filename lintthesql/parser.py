@@ -52,16 +52,20 @@ class Parser:
         return parsed.tokens
 
     def format(self):
-        rules = self.config.get_rules()
         file_contents = self.get_file_contents()
+        formatter = Formatter()
+        file_contents = formatter.format(file_contents, **self.get_rule_list())
+
+        print(file_contents)
+
+    def get_rule_list(self):
+        rules = self.config.get_rules()
         rule_list = {}
+
         for rule in rules:
             rule_list = {**rule_list, **rule.get()}
 
-        formatter = Formatter()
-        file_contents = formatter.format(file_contents, **rule_list)
-
-        print(file_contents)
+        return rule_list
 
     def filter_text(self, text):
         return text.replace(";\n",";").replace("--","\n--")
