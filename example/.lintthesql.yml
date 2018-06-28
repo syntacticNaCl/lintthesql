@@ -13,3 +13,6 @@ indent:
   tabs: false
   width: 4 
 
+wrap:
+  column_limit: 10 
+  
