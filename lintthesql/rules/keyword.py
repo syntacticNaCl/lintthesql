@@ -3,12 +3,10 @@ import sqlparse
 from rules.rule import Rule
 
 class KeywordRule(Rule):
+    RULE_KEY = 'keyword'
     RULE_CASE_LOWER = 'lower'
     RULE_CASE_UPPER = 'upper'
     RULE_CASE_CAPITALIZE = 'capitalize'
-
-    def __init__(self):
-        self.rule_key = 'keyword'
 
     def format(self, file_contents):
         rule = self.rule

@@ -6,9 +6,7 @@ from sqlparse import sql, parse, split, format as sqlformat
 from rules.rule import Rule
 
 class IndentRule(Rule):
-
-    def __init__(self):
-        self.rule_key = 'indent'
+    RULE_KEY = 'indent'
 
     def format(self, file_contents):
         rule = self.rule

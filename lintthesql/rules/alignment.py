@@ -6,9 +6,7 @@ from sqlparse import sql, parse, split, format as sqlformat
 from rules.rule import Rule
 
 class AlignmentRule(Rule):
-
-    def __init__(self):
-        self.rule_key = 'alignment'
+    RULE_KEY = 'alignment'
 
     def format(self, file_contents):
         rule = self.rule
