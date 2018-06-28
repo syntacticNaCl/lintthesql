@@ -3,16 +3,10 @@ import sys
 from sqlparse import tokens as T
 from sqlparse import sql, parse, format as sqlformat
 
-class Formatter(object):
+class Rule(object):
 
-    PRIORITY=None
-
-    def set_config(self, config):
-        rules = config.get_rules()
+    def set_rule(self, rules):
         self.rule = rules.get(self.rule_key)
-
-    def get_rule(self):
-        pass
 
     def format(self):
         pass

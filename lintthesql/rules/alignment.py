@@ -3,9 +3,9 @@ import os, sys
 from sqlparse import tokens as T
 from sqlparse import sql, parse, split, format as sqlformat
 
-from formatters.formatter import Formatter
+from rules.rule import Rule
 
-class AlignmentFormatter(Formatter):
+class AlignmentRule(Rule):
 
     def __init__(self):
         self.rule_key = 'alignment'
@@ -13,7 +13,7 @@ class AlignmentFormatter(Formatter):
     def format(self, file_contents):
         rule = self.rule
 
-        # TODO: parse tokens before passing to formatter. need to fix spacing after terminators and line endings
+        # TODO: parse tokens before passing to rule. need to fix spacing after terminators and line endings
 
         if rule['justification'] and rule['justification'] != 'left':
             formattedSql = sqlformat(file_contents, reindent_aligned=True)

@@ -1,9 +1,9 @@
 import os, sys
 import yaml
 
-from formatters.keyword import KeywordFormatter
-from formatters.alignment import AlignmentFormatter
-from formatters.indent import IndentFormatter
+from rules.keyword import KeywordRule
+from rules.alignment import AlignmentRule
+from rules.indent import IndentRule
 
 class Config:
 
@@ -11,37 +11,28 @@ class Config:
         self.config_path = config_path
         self.load()
 
-    def get_rules(self):
-        return self.rules
-
     def load(self):
         with open(self.config_path, 'r') as stream:
             try:
                 self.rules = yaml.load(stream)
-                return self
             except yaml.YAMLError as exc:
                 print(exc)
 
-    def get_formatters(self):
-        rules = self.get_rules()
-        formatters = []
-        config = self.load()
+    def get_rules(self):
+        rules = []
 
-        for rule in rules:
-            if rule == 'indent':
-                formatter = IndentFormatter()
-                formatter.set_config(self.load())
-                formatters.insert(0,formatter)
-            elif rule == 'keyword':
-                formatter = KeywordFormatter()
-                formatter.set_config(self.load())
-                formatters.append(formatter)
-            elif rule == 'alignment':
-                formatter = AlignmentFormatter()
-                formatter.set_config(self.load())
-                formatters.append(formatter)
+        for rule_key in self.rules:
+            if rule_key == 'indent':
+                rule = IndentRule()
+                rule.set_rule(self.rules)
+                rules.insert(0, rule)
+            elif rule_key == 'keyword':
+                rule = KeywordRule()
+                rule.set_rule(self.rules)
+                rules.append(rule)
+            elif rule_key == 'alignment':
+                rule = AlignmentRule()
+                rule.set_rule(self.rules)
+                rules.append(rule)
 
-        return formatters
-
-
-
+        return rules

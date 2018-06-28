@@ -3,11 +3,9 @@ import os, sys
 from sqlparse import tokens as T
 from sqlparse import sql, parse, split, format as sqlformat
 
-from formatters.formatter import Formatter
+from rules.rule import Rule
 
-class IndentFormatter(Formatter):
-
-    PRIORITY = 'high'
+class IndentRule(Rule):
 
     def __init__(self):
         self.rule_key = 'indent'
@@ -15,7 +13,7 @@ class IndentFormatter(Formatter):
     def format(self, file_contents):
         rule = self.rule
 
-        # TODO: parse tokens before passing to formatter. need to fix spacing after terminators and line endings
+        # TODO: parse tokens before passing to rule. need to fix spacing after terminators and line endings
         has_tabs = rule.get('tabs', False)
         width = rule.get('width', False)
 

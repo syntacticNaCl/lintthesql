@@ -1,7 +1,7 @@
 import os, sys, sqlparse
 
 from config import Config
-from formatters.keyword import KeywordFormatter
+from rules.keyword import KeywordRule
 
 class Parser:
 
@@ -52,11 +52,11 @@ class Parser:
         return parsed.tokens
 
     def format(self):
-        formatters = self.config.get_formatters()
+        rules = self.config.get_rules()
         file_contents = self.get_file_contents()
-        # print(formatters[0].format_custom(file_contents))
-        for formatter in formatters:
-            file_contents = formatter.format(file_contents)
+        # print(rules[0].format_custom(file_contents))
+        for rule in rules:
+            file_contents = rule.format(file_contents)
 
         print(file_contents)
 
