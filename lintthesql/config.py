@@ -3,6 +3,7 @@ import yaml
 
 from formatters.keyword import KeywordFormatter
 from formatters.alignment import AlignmentFormatter
+from formatters.indent import IndentFormatter
 
 class Config:
 
@@ -27,7 +28,11 @@ class Config:
         config = self.load()
 
         for rule in rules:
-            if rule == 'keyword':
+            if rule == 'indent':
+                formatter = IndentFormatter()
+                formatter.set_config(self.load())
+                formatters.insert(0,formatter)
+            elif rule == 'keyword':
                 formatter = KeywordFormatter()
                 formatter.set_config(self.load())
                 formatters.append(formatter)

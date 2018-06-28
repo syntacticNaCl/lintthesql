@@ -7,11 +7,11 @@ class KeywordFormatter(Formatter):
     RULE_CASE_UPPER = 'upper'
     RULE_CASE_CAPITALIZE = 'capitalize'
 
-    def get_rule(self):
-        return self.rules['keyword']
+    def __init__(self):
+        self.rule_key = 'keyword'
 
     def format(self, file_contents):
-        rule = self.get_rule()
+        rule = self.rule
         case_rule = rule['case']
 
         if case_rule:

@@ -5,12 +5,11 @@ from sqlparse import sql, parse, format as sqlformat
 
 class Formatter(object):
 
+    PRIORITY=None
+
     def set_config(self, config):
-        try:
-            self.rules = config.get_rules()
-        except:
-            print('Please provide a valid Config object to the parser')
-            sys.exit()
+        rules = config.get_rules()
+        self.rule = rules.get(self.rule_key)
 
     def get_rule(self):
         pass
@@ -21,4 +20,3 @@ class Formatter(object):
     def fix_spacing(self, sql_formatted):
         sql_formatted = sql_formatted.replace('--', '\n--')
         return sql_formatted
-    

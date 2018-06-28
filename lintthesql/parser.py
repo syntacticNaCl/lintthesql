@@ -54,6 +54,7 @@ class Parser:
     def format(self):
         formatters = self.config.get_formatters()
         file_contents = self.get_file_contents()
+        # print(formatters[0].format_custom(file_contents))
         for formatter in formatters:
             file_contents = formatter.format(file_contents)
 
