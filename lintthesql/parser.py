@@ -2,6 +2,7 @@ import os, sys, sqlparse
 
 from config import Config
 from formatter import Formatter
+from reporter import Reporter
 
 class Parser:
 
@@ -56,7 +57,7 @@ class Parser:
         formatter = Formatter()
         file_contents = formatter.format(file_contents, **self.get_rule_list())
 
-        print(file_contents)
+        Reporter.add_message(file_contents)
 
     def get_rule_list(self):
         rules = self.config.get_rules()

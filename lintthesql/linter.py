@@ -1,4 +1,5 @@
 from parser import Parser
+from reporter import Reporter
 from sqlparse import parse, tokens as T
 from linters.keyword import KeywordLinter
 
@@ -19,9 +20,10 @@ class Linter(Parser):
 
         if len(linting_errors) > 0:
             self.print_file_name()
+            Reporter.add_message(f'{len(linting_errors)} error(s) found:')
 
             for linting_error in linting_errors:
-                print(linting_error)
+                Reporter.add_message(linting_error)
 
     def flatten_tokens(self, tokens, flattened):
         for token in tokens:
@@ -45,4 +47,4 @@ class Linter(Parser):
         return token.ttype in (T.Text.Whitespace.Newline, T.Comment.Single)
 
     def print_file_name(self):
-        print(f'File: {self.sql_file}')
+        Reporter.add_message(f'\nFile: {self.sql_file}')
