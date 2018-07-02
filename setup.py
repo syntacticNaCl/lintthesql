@@ -32,6 +32,7 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3 :: Only',
     ],
+    package_data= {'': ['nyan.mp3']},
     keywords = 'cli, lint, formatter, sql',
     packages = find_packages(exclude=['docs', 'tests*', 'examples']),
     install_requires = ['sqlparse','PyYaml'],
