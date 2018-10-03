@@ -1,0 +1,17 @@
+---
+language:
+  name: mysql
+  version: 5.7
+
+alignment: 
+  justification: right
+
+keyword:
+  case: upper
+
+indent:
+  tabs: false
+  width: 4 
+
+wrap:
+  column_limit: 10 
