@@ -1,11 +1,14 @@
 """Packaging settings."""
 
-
+import sys
 from codecs import open
 from os.path import abspath, dirname, join
 from subprocess import call
 
 from setuptools import Command, find_packages, setup
+
+# if sys.version_info[0] < 3:
+#     raise Exception("Python 3 or a more recent version is required.")
 
 LONG_DESCRIPTION = """
 lintthesql is a SQL linter and formatter.
